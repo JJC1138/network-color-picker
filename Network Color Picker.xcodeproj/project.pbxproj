@@ -11,6 +11,11 @@
 		FCBC96881EB2F35D00575731 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC96871EB2F35D00575731 /* ViewController.swift */; };
 		FCBC968A1EB2F35E00575731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCBC96891EB2F35E00575731 /* Assets.xcassets */; };
 		FCBC968D1EB2F35E00575731 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC968B1EB2F35E00575731 /* Main.storyboard */; };
+		FCBC96B91EB3238900575731 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC96B81EB3238900575731 /* AppDelegate.swift */; };
+		FCBC96BB1EB3238900575731 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC96BA1EB3238900575731 /* ViewController.swift */; };
+		FCBC96BE1EB3238900575731 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC96BC1EB3238900575731 /* Main.storyboard */; };
+		FCBC96C01EB3238A00575731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCBC96BF1EB3238A00575731 /* Assets.xcassets */; };
+		FCBC96C31EB3238A00575731 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC96C11EB3238A00575731 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +25,24 @@
 		FCBC96891EB2F35E00575731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCBC968C1EB2F35E00575731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FCBC968E1EB2F35E00575731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCBC96B61EB3238900575731 /* Network Color Picker Demo Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Network Color Picker Demo Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCBC96B81EB3238900575731 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FCBC96BA1EB3238900575731 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FCBC96BD1EB3238900575731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FCBC96BF1EB3238A00575731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FCBC96C21EB3238A00575731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FCBC96C41EB3238A00575731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		FCBC967F1EB2F35D00575731 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCBC96B31EB3238900575731 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -37,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				FCBC96841EB2F35D00575731 /* Network Color Picker */,
+				FCBC96B71EB3238900575731 /* Network Color Picker Demo Client */,
 				FCBC96831EB2F35D00575731 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				FCBC96821EB2F35D00575731 /* Network Color Picker.app */,
+				FCBC96B61EB3238900575731 /* Network Color Picker Demo Client.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -59,6 +80,19 @@
 				FCBC968E1EB2F35E00575731 /* Info.plist */,
 			);
 			path = "Network Color Picker";
+			sourceTree = "<group>";
+		};
+		FCBC96B71EB3238900575731 /* Network Color Picker Demo Client */ = {
+			isa = PBXGroup;
+			children = (
+				FCBC96B81EB3238900575731 /* AppDelegate.swift */,
+				FCBC96BA1EB3238900575731 /* ViewController.swift */,
+				FCBC96BC1EB3238900575731 /* Main.storyboard */,
+				FCBC96BF1EB3238A00575731 /* Assets.xcassets */,
+				FCBC96C11EB3238A00575731 /* LaunchScreen.storyboard */,
+				FCBC96C41EB3238A00575731 /* Info.plist */,
+			);
+			path = "Network Color Picker Demo Client";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -81,6 +115,23 @@
 			productReference = FCBC96821EB2F35D00575731 /* Network Color Picker.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FCBC96B51EB3238900575731 /* Network Color Picker Demo Client */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCBC96C51EB3238A00575731 /* Build configuration list for PBXNativeTarget "Network Color Picker Demo Client" */;
+			buildPhases = (
+				FCBC96B21EB3238900575731 /* Sources */,
+				FCBC96B31EB3238900575731 /* Frameworks */,
+				FCBC96B41EB3238900575731 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Network Color Picker Demo Client";
+			productName = "Network Color Picker Demo Client";
+			productReference = FCBC96B61EB3238900575731 /* Network Color Picker Demo Client.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -92,6 +143,11 @@
 				ORGANIZATIONNAME = "Jon Colverson";
 				TargetAttributes = {
 					FCBC96811EB2F35D00575731 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = HM2488TH6E;
+						ProvisioningStyle = Automatic;
+					};
+					FCBC96B51EB3238900575731 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = HM2488TH6E;
 						ProvisioningStyle = Automatic;
@@ -112,6 +168,7 @@
 			projectRoot = "";
 			targets = (
 				FCBC96811EB2F35D00575731 /* Network Color Picker */,
+				FCBC96B51EB3238900575731 /* Network Color Picker Demo Client */,
 			);
 		};
 /* End PBXProject section */
@@ -123,6 +180,16 @@
 			files = (
 				FCBC968A1EB2F35E00575731 /* Assets.xcassets in Resources */,
 				FCBC968D1EB2F35E00575731 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCBC96B41EB3238900575731 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCBC96C31EB3238A00575731 /* LaunchScreen.storyboard in Resources */,
+				FCBC96C01EB3238A00575731 /* Assets.xcassets in Resources */,
+				FCBC96BE1EB3238900575731 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +205,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCBC96B21EB3238900575731 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCBC96BB1EB3238900575731 /* ViewController.swift in Sources */,
+				FCBC96B91EB3238900575731 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -147,6 +223,22 @@
 				FCBC968C1EB2F35E00575731 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FCBC96BC1EB3238900575731 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FCBC96BD1EB3238900575731 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FCBC96C11EB3238A00575731 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FCBC96C21EB3238A00575731 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -272,6 +364,41 @@
 			};
 			name = Release;
 		};
+		FCBC96C61EB3238A00575731 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = HM2488TH6E;
+				INFOPLIST_FILE = "Network Color Picker Demo Client/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.jjc1138.Network-Color-Picker-Demo-Client";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FCBC96C71EB3238A00575731 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = HM2488TH6E;
+				INFOPLIST_FILE = "Network Color Picker Demo Client/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.jjc1138.Network-Color-Picker-Demo-Client";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -289,6 +416,14 @@
 			buildConfigurations = (
 				FCBC96921EB2F35E00575731 /* Debug */,
 				FCBC96931EB2F35E00575731 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FCBC96C51EB3238A00575731 /* Build configuration list for PBXNativeTarget "Network Color Picker Demo Client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCBC96C61EB3238A00575731 /* Debug */,
+				FCBC96C71EB3238A00575731 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
