@@ -48,7 +48,7 @@ class ViewController: NSViewController, MCNearbyServiceAdvertiserDelegate, MCSes
     // MARK: MCNearbyServiceAdvertiserDelegate
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        let session = MCSession(peer: serviceAdvertiser.myPeerID)
+        let session = MCSession(peer: advertiser.myPeerID, securityIdentity: nil, encryptionPreference: .none)
         session.delegate = self
         invitationHandler(true, session)
         DispatchQueue.main.async {

@@ -6,6 +6,7 @@ class ViewController: UIViewController, MCNearbyServiceBrowserDelegate, MCSessio
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        serviceBrowser = MCNearbyServiceBrowser(peer: MCPeerID(displayName: "Client"), serviceType: "colorpicker")
         serviceBrowser.delegate = self
         serviceBrowser.startBrowsingForPeers()
     }
@@ -18,7 +19,7 @@ class ViewController: UIViewController, MCNearbyServiceBrowserDelegate, MCSessio
         session = nil
     }
     
-    private let serviceBrowser = MCNearbyServiceBrowser(peer: MCPeerID(displayName: "Client"), serviceType: "colorpicker")
+    private var serviceBrowser: MCNearbyServiceBrowser!
     
     // MARK: MCNearbyServiceBrowserDelegate
     
@@ -27,7 +28,7 @@ class ViewController: UIViewController, MCNearbyServiceBrowserDelegate, MCSessio
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         browser.stopBrowsingForPeers()
         
-        let session = MCSession(peer: serviceBrowser.myPeerID)
+        let session = MCSession(peer: browser.myPeerID, securityIdentity: nil, encryptionPreference: .none)
         session.delegate = self
         browser.invitePeer(peerID, to: session, withContext: nil, timeout: 5)
         self.session = session
