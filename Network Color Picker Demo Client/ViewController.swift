@@ -1,59 +1,79 @@
-import MultipeerConnectivity
+import Foundation
 import UIKit
 
-class ViewController: UIViewController, MCNearbyServiceBrowserDelegate, MCSessionDelegate {
+class ViewController: UIViewController, NetServiceBrowserDelegate, StreamDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        serviceBrowser = MCNearbyServiceBrowser(peer: MCPeerID(displayName: "Client"), serviceType: "colorpicker")
+        serviceBrowser = NetServiceBrowser()
         serviceBrowser.delegate = self
-        serviceBrowser.startBrowsingForPeers()
+        searchForService()
+    }
+    
+    func searchForService() {
+        serviceBrowser.searchForServices(ofType: "_colorpicker._tcp.", inDomain: "local.")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        serviceBrowser.stopBrowsingForPeers()
-        session?.disconnect()
-        session = nil
+        serviceBrowser.stop()
+        socketStream?.close()
+        socketStream = nil
     }
     
-    private var serviceBrowser: MCNearbyServiceBrowser!
+    private var serviceBrowser: NetServiceBrowser!
     
-    // MARK: MCNearbyServiceBrowserDelegate
+    // MARK: NetServiceBrowserDelegate
     
-    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {}
-    
-    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
-        browser.stopBrowsingForPeers()
+    func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
+        assert(Thread.isMainThread)
         
-        let session = MCSession(peer: browser.myPeerID, securityIdentity: nil, encryptionPreference: .none)
-        session.delegate = self
-        browser.invitePeer(peerID, to: session, withContext: nil, timeout: 5)
-        self.session = session
+        var outputStream: OutputStream?
+        service.getInputStream(&self.socketStream, outputStream: &outputStream)
+        
+        outputStream!.close()
+        
+        let socketStream = self.socketStream!
+        socketStream.delegate = self
+        socketStream.schedule(in: .main, forMode: .defaultRunLoopMode)
+        socketStream.open()
     }
     
-    private var session: MCSession?
+    private var socketStream: InputStream?
     
-    // MCSessionDelegate
+    // MARK: StreamDelegate
     
-    // MARK: MCSessionDelegate
-    
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {}
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL, withError error: Error?) {}
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {}
-    
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        if state == .notConnected {
-            DispatchQueue.main.async {
-                self.session = nil
-                self.serviceBrowser.startBrowsingForPeers()
+    func stream(_ stream: Stream, handle eventCode: Stream.Event) {
+        assert(Thread.isMainThread)
+        
+        let socketStream = self.socketStream!
+        
+        if eventCode == .hasBytesAvailable {
+            let data = NSMutableData()
+            
+            let bufferSize = 4096
+            let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
+            defer { buffer.deallocate(capacity: bufferSize) }
+            
+            while socketStream.hasBytesAvailable {
+                let readBytes = socketStream.read(buffer, maxLength: bufferSize)
+                assert(readBytes >= 0)
+                data.append(buffer, length: readBytes)
             }
+            
+            if data.length > 0 {
+                process(data: data as Data)
+            }
+        } else if eventCode == .endEncountered || eventCode == .errorOccurred {
+            socketStream.close()
+            self.socketStream = nil
+            searchForService()
         }
     }
     
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+    func process(data: Data) {
         let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
         
         let color = UIColor(
@@ -61,6 +81,8 @@ class ViewController: UIViewController, MCNearbyServiceBrowserDelegate, MCSessio
             green: CGFloat(unarchiver.decodeDouble(forKey: "green")),
             blue: CGFloat(unarchiver.decodeDouble(forKey: "blue")),
             alpha: CGFloat(unarchiver.decodeDouble(forKey: "alpha")))
+        
+        print(color)
         
         view.backgroundColor = color
     }
