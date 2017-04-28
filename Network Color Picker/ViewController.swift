@@ -1,7 +1,7 @@
-import Cocoa
-import MultipeerConnectivity
+import AppKit
+import Foundation
 
-class ViewController: NSViewController, MCNearbyServiceAdvertiserDelegate, MCSessionDelegate {
+class ViewController: NSViewController, NetServiceDelegate {
     
     var color = NSColor.magenta
     
@@ -10,9 +10,9 @@ class ViewController: NSViewController, MCNearbyServiceAdvertiserDelegate, MCSes
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: MCPeerID(displayName: "Server"), discoveryInfo: nil, serviceType: "colorpicker")
-        serviceAdvertiser.delegate = self
-        serviceAdvertiser.startAdvertisingPeer()
+        service = NetService(domain: "local.", type: "_colorpicker._tcp.", name: "", port: 0)
+        service.delegate = self
+        service.publish(options: [.listenForConnections])
         
         colorWell.addObserver(self, forKeyPath: #keyPath(NSColorWell.color), options: [.initial], context: nil)
     }
@@ -20,13 +20,22 @@ class ViewController: NSViewController, MCNearbyServiceAdvertiserDelegate, MCSes
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         color = colorWell.color
         
-        for session in sessions {
-            sendColor(to: session.connectedPeers, of: session)
+        for stream in openSocketStreams {
+            sendColor(to: stream)
         }
     }
     
-    func sendColor(to peers: [MCPeerID], of session: MCSession) {
-        try? session.send(data(from: color), toPeers: peers, with: .reliable)
+    func sendColor(to outputStream: OutputStream) {
+        let data = self.data(from: color)
+        let bytesWritten = data.withUnsafeBytes { pointer in
+            return outputStream.write(pointer, maxLength: data.count)
+        }
+        if bytesWritten == -1 {
+            outputStream.close()
+            openSocketStreams.remove(at: openSocketStreams.index(of: outputStream)!)
+        } else {
+            assert(bytesWritten == data.count)
+        }
     }
     
     func data(from color: NSColor) -> Data {
@@ -42,38 +51,18 @@ class ViewController: NSViewController, MCNearbyServiceAdvertiserDelegate, MCSes
         return archiver.encodedData
     }
     
-    private var serviceAdvertiser: MCNearbyServiceAdvertiser!
+    private var service: NetService!
     
-    // MARK: MCNearbyServiceAdvertiserDelegate
+    // MARK: NetServiceDelegate
     
-    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        let session = MCSession(peer: advertiser.myPeerID, securityIdentity: nil, encryptionPreference: .none)
-        session.delegate = self
-        invitationHandler(true, session)
-        DispatchQueue.main.async {
-            self.sessions.append(session)
-        }
+    func netService(_ sender: NetService, didAcceptConnectionWith inputStream: InputStream, outputStream: OutputStream) {
+        assert(Thread.isMainThread)
+        inputStream.close()
+        outputStream.open()
+        openSocketStreams.append(outputStream)
+        sendColor(to: outputStream)
     }
     
-    private var sessions = [MCSession]()
-    
-    // MARK: MCSessionDelegate
-    
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {}
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {}
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL, withError error: Error?) {}
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {}
-    
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        if state == .connected {
-            DispatchQueue.main.async {
-                self.sendColor(to: [peerID], of: session)
-            }
-        } else if state == .notConnected {
-            DispatchQueue.main.async {
-                self.sessions.remove(at: self.sessions.index(of: session)!)
-            }
-        }
-    }
+    private var openSocketStreams = [OutputStream]()
     
 }
