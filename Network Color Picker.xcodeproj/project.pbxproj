@@ -16,6 +16,7 @@
 		FCBC96BE1EB3238900575731 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC96BC1EB3238900575731 /* Main.storyboard */; };
 		FCBC96C01EB3238A00575731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCBC96BF1EB3238A00575731 /* Assets.xcassets */; };
 		FCBC96C31EB3238A00575731 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCBC96C11EB3238A00575731 /* LaunchScreen.storyboard */; };
+		FCBC96C91EB36E0800575731 /* NetworkColorPickerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBC96C81EB36E0800575731 /* NetworkColorPickerClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		FCBC96BF1EB3238A00575731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCBC96C21EB3238A00575731 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCBC96C41EB3238A00575731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCBC96C81EB36E0800575731 /* NetworkColorPickerClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkColorPickerClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 		FCBC96B71EB3238900575731 /* Network Color Picker Demo Client */ = {
 			isa = PBXGroup;
 			children = (
+				FCBC96C81EB36E0800575731 /* NetworkColorPickerClient.swift */,
 				FCBC96B81EB3238900575731 /* AppDelegate.swift */,
 				FCBC96BA1EB3238900575731 /* ViewController.swift */,
 				FCBC96BC1EB3238900575731 /* Main.storyboard */,
@@ -209,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCBC96C91EB36E0800575731 /* NetworkColorPickerClient.swift in Sources */,
 				FCBC96BB1EB3238900575731 /* ViewController.swift in Sources */,
 				FCBC96B91EB3238900575731 /* AppDelegate.swift in Sources */,
 			);
