@@ -31,8 +31,16 @@ class ViewController: NSViewController, MCNearbyServiceAdvertiserDelegate, MCSes
     }
     
     func data(from color: NSColor) -> Data {
-        // FIXME Serialize for real instead of:
-        return Data()
+        let extendedSRGBColor = color.usingColorSpace(.extendedSRGB)!
+        
+        let archiver = NSKeyedArchiver()
+        
+        archiver.encode(extendedSRGBColor.redComponent, forKey: "red")
+        archiver.encode(extendedSRGBColor.greenComponent, forKey: "green")
+        archiver.encode(extendedSRGBColor.blueComponent, forKey: "blue")
+        archiver.encode(extendedSRGBColor.alphaComponent, forKey: "alpha")
+        
+        return archiver.encodedData
     }
     
     private var serviceAdvertiser: MCNearbyServiceAdvertiser!
