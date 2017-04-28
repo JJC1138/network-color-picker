@@ -30,6 +30,8 @@ class ViewController: UIViewController, NetServiceBrowserDelegate, StreamDelegat
     func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
         assert(Thread.isMainThread)
         
+        serviceBrowser.stop()
+        
         var outputStream: OutputStream?
         service.getInputStream(&self.socketStream, outputStream: &outputStream)
         
