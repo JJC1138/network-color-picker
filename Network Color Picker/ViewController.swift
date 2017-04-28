@@ -19,7 +19,6 @@ class ViewController: NSViewController, MCNearbyServiceAdvertiserDelegate, MCSes
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         color = colorWell.color
-        print("Color changed to: \(color)") // FIXME remove
         
         for session in sessions {
             sendColor(to: session.connectedPeers, of: session)
@@ -35,10 +34,10 @@ class ViewController: NSViewController, MCNearbyServiceAdvertiserDelegate, MCSes
         
         let archiver = NSKeyedArchiver()
         
-        archiver.encode(extendedSRGBColor.redComponent, forKey: "red")
-        archiver.encode(extendedSRGBColor.greenComponent, forKey: "green")
-        archiver.encode(extendedSRGBColor.blueComponent, forKey: "blue")
-        archiver.encode(extendedSRGBColor.alphaComponent, forKey: "alpha")
+        archiver.encode(Double(extendedSRGBColor.redComponent), forKey: "red")
+        archiver.encode(Double(extendedSRGBColor.greenComponent), forKey: "green")
+        archiver.encode(Double(extendedSRGBColor.blueComponent), forKey: "blue")
+        archiver.encode(Double(extendedSRGBColor.alphaComponent), forKey: "alpha")
         
         return archiver.encodedData
     }

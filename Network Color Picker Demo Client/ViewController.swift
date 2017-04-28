@@ -54,7 +54,15 @@ class ViewController: UIViewController, MCNearbyServiceBrowserDelegate, MCSessio
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("received data") // FIXME remove
+        let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+        
+        let color = UIColor(
+            red: CGFloat(unarchiver.decodeDouble(forKey: "red")),
+            green: CGFloat(unarchiver.decodeDouble(forKey: "green")),
+            blue: CGFloat(unarchiver.decodeDouble(forKey: "blue")),
+            alpha: CGFloat(unarchiver.decodeDouble(forKey: "alpha")))
+        
+        view.backgroundColor = color
     }
     
 }
